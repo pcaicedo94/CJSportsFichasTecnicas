@@ -353,20 +353,20 @@
                     <span class="info-item-label">CURRENT CLUB</span>
                     <div class="club-with-shield">
                         {% if escudo_url %}<img src="{{ escudo_url }}" class="club-shield" alt="Club Shield">{% endif %}
-                        <span class="info-item-value" style="color: #fff; font-size: 1em;">{{ club }}</span>
+                        <span class="info-item-value" style="color: #fff; font-size: 1em;">{% if club == 'Atlético Nacional' %}<span style="color: var(--neon);">{{ club }}</span>{% else %}{{ club }}{% endif %}</span>
                     </div>
                 </div>
                 <div class="club-info-item">
                     <span class="info-item-label">CONTRACT UNTIL</span>
-                    <span class="info-item-value" style="color: #fff; font-size: 1em;">{{ contrato }}</span>
+                    <span class="info-item-value" style="color: #fff; font-size: 1em;">{% if contrato == '31/12/2026' %}<span style="color: var(--neon);">{{ contrato }}</span>{% else %}{{ contrato }}{% endif %}</span>
                 </div>
                 <div class="club-info-item">
                     <span class="info-item-label">DESIRED SALARY</span>
-                    <span class="info-item-value" style="color: #fff; font-size: 1em;">{{ salario }}</span>
+                    <span class="info-item-value" style="color: #fff; font-size: 1em;">{% if salario == '€1M' %}<span style="color: var(--neon);">{{ salario }}</span>{% else %}{{ salario }}{% endif %}</span>
                 </div>
                 <div class="club-info-item">
                     <span class="info-item-label">TRANSFER FEE</span>
-                    <span class="info-item-value" style="font-size: 1em;">{{ valor }}</span>
+                    <span class="info-item-value" style="font-size: 1em;">{% if valor == '€1M' %}<span style="color: var(--neon);">{{ valor }}</span>{% else %}{{ valor }}{% endif %}</span>
                 </div>
             </div>
         </div>

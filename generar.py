@@ -58,9 +58,15 @@ def crear_radar_pro(stats_valores, stats_nombres, nombre_archivo):
     return nombre_archivo
 
 # --- PROCESO ---
+import sys
 df = pd.read_excel('datos_scouting.xlsx').fillna('')
 env = Environment(loader=FileSystemLoader(CARPETA_ACTUAL))
-template = env.get_template('plantilla.html')
+plantilla = 'plantilla.html'  # Por defecto azul
+color_tag = 'azul'
+if len(sys.argv) > 1 and sys.argv[1].lower() == 'verde':
+    plantilla = 'plantilla_verde.html'
+    color_tag = 'verde'
+template = env.get_template(plantilla)
 
 # Nombres profesionales para las puntas del gráfico
 LABELS_GRAFICO = ['DUELOS %', 'AÉREO', 'PROGRESIÓN', 'REGATE', 'RECUP.', 'GOL ESP. (xG)']
@@ -135,7 +141,8 @@ for i, fila in df.iterrows():
     else:
         datos['mvp_peak'] = ''
 
-    with open(os.path.join(CARPETA_SALIDA, f"Reporte_{fila['Apellido']}.html"), 'w', encoding='utf-8') as f:
+    nombre_archivo = f"Reporte_{fila['Apellido']}_{color_tag}.html"
+    with open(os.path.join(CARPETA_SALIDA, nombre_archivo), 'w', encoding='utf-8') as f:
         f.write(template.render(datos))
 
 print("🚀 Reportes generados en 'reportes_scouting'")

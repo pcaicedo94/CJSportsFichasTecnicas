@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Scouting Report Silva</title>
+    <title>Scouting Report {{ apellido }}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;500;700&family=Roboto:wght@300;400;700&display=swap');
         :root {
-            --neon-green: #39FF14;
+            --neon-green: #009B3A;
             --dark-green: #0a2e13;
             --dark-card: #123d1a;
             --teal: #1a3a52;
@@ -67,57 +67,57 @@
 <div class="page">
     <div class="header">
         <div class="header-left">
-            <img src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=800&q=80" class="player-avatar" alt="Cristiano Silva">
+            <img src="{{ foto_url }}" class="player-avatar" alt="{{ nombre }} {{ apellido }}">
         </div>
         <div class="header-right">
             <div class="header-top">
                 <div class="player-info">
-                    <h1>Cristiano <span>Silva</span></h1>
-                    <div class="player-subtitle">Striker</div>
+                    <h1>{{ nombre }} <span>{{ apellido }}</span></h1>
+                    <div class="player-subtitle">{{ posicion }}</div>
                     <div class="info-row">
                         <div class="info-item">
                             <span class="info-item-label">AGE</span>
-                            <span class="info-item-value">28</span>
+                            <span class="info-item-value">{{ edad }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-item-label">HEIGHT</span>
-                            <span class="info-item-value">1.87m</span>
+                            <span class="info-item-value">{{ altura }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-item-label">NATIONALITY</span>
-                            <span class="info-item-value">Portugal</span>
+                            <span class="info-item-value">{{ nacionalidad }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-item-label">FOOT</span>
-                            <span class="info-item-value">Derecho</span>
+                            <span class="info-item-value">{{ pie }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="header-buttons">
-                    <a href="" class="social-link" target="_blank">Instagram</a>
-                    <a href="" class="social-link" target="_blank">Transfermarkt</a>
-                    <a href="https://hudl.com" class="btn-video" target="_blank">▶ VIEW HIGHLIGHTS</a>
+                    <a href="{{ instagram_url }}" class="social-link" target="_blank">Instagram</a>
+                    <a href="{{ tm_url }}" class="social-link" target="_blank">Transfermarkt</a>
+                    <a href="{{ video_url }}" class="btn-video" target="_blank">▶ VIEW HIGHLIGHTS</a>
                 </div>
             </div>
             <div class="club-info-row">
                 <div class="club-info-item">
                     <span class="info-item-label">CURRENT CLUB</span>
                     <div class="club-with-shield">
-                        
-                        <span class="info-item-value">Sporting Norte</span>
+                        {% if escudo_url %}<img src="{{ escudo_url }}" class="club-shield" alt="Club Shield">{% endif %}
+                        <span class="info-item-value">{{ club }}</span>
                     </div>
                 </div>
                 <div class="club-info-item">
                     <span class="info-item-label">CONTRACT UNTIL</span>
-                    <span class="info-item-value">30/06/2025</span>
+                    <span class="info-item-value">{{ contrato }}</span>
                 </div>
                 <div class="club-info-item">
                     <span class="info-item-label">DESIRED SALARY</span>
-                    <span class="info-item-value"></span>
+                    <span class="info-item-value">{{ salario }}</span>
                 </div>
                 <div class="club-info-item">
                     <span class="info-item-label">TRANSFER FEE</span>
-                    <span class="info-item-value">€2.8M</span>
+                    <span class="info-item-value">{{ valor }}</span>
                 </div>
             </div>
         </div>
@@ -129,28 +129,14 @@
                 <table>
                     <thead><tr><th>Season</th><th>Club</th><th style="text-align:center">GP</th><th style="text-align:center">G/A</th></tr></thead>
                     <tbody>
-                        
+                        {% for t in trayectoria %}
                         <tr>
-                            <td>2023/24</td>
-                            <td>Sp. Norte</td>
-                            <td style="text-align:center">28</td>
-                            <td style="text-align:center; color:var(--neon-green); font-weight:bold;">15</td>
+                            <td>{{ t.temp }}</td>
+                            <td>{{ t.club }}</td>
+                            <td style="text-align:center">{{ t.pj }}</td>
+                            <td style="text-align:center; color:var(--neon-green); font-weight:bold;">{{ t.goles }}</td>
                         </tr>
-                        
-                        <tr>
-                            <td>2022/23</td>
-                            <td>FC Porto B</td>
-                            <td style="text-align:center">30</td>
-                            <td style="text-align:center; color:var(--neon-green); font-weight:bold;">10</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>2021/22</td>
-                            <td>Braga U23</td>
-                            <td style="text-align:center">22</td>
-                            <td style="text-align:center; color:var(--neon-green); font-weight:bold;">8</td>
-                        </tr>
-                        
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -160,15 +146,15 @@
                 <div>
                     <h2>Strengths</h2>
                     <ul>
-                         <li>Juego aéreo</li>  <li>Finalización</li>  <li>Potencia física</li> 
+                        {% for f in fortalezas %} <li>{{ f }}</li> {% endfor %}
                     </ul>
                 </div>
                 <div>
                     <h2>Market Value Projection</h2>
                     <div style="padding: 15px 0; font-size: 0.9em; color: #b6f5c6; line-height: 2;">
-                        <div>• Current market value: <span style="color: var(--neon-green); font-weight: bold;">Participación en construcción</span></div>
-                        <div>• Potential growth to short-term: Presión alta</div>
-                        
+                        <div>• Current market value: <span style="color: var(--neon-green); font-weight: bold;">{{ mvp_current }}</span></div>
+                        {% if mvp_short_term %}<div>• Potential growth to short-term: {{ mvp_short_term|safe }}</div>{% endif %}
+                        {% if mvp_peak %}<div>• Potential growth at peak: {{ mvp_peak|safe }}</div>{% endif %}
                     </div>
                 </div>
             </div>
@@ -177,36 +163,36 @@
             <div class="circle-stats">
                 <div class="stat-box">
                     <div class="circle-stat">
-                        <div class="circle" style="--percent: 45">
+                        <div class="circle" style="--percent: {{ dato_duelos }}">
                             <svg viewBox="0 0 130 130">
                                 <circle class="circle-bg" cx="65" cy="65" r="58"/>
                                 <circle class="circle-progress" cx="65" cy="65" r="58"/>
                             </svg>
-                            <div class="circle-value">45<small>%</small></div>
+                            <div class="circle-value">{{ dato_duelos }}<small>%</small></div>
                         </div>
                         <div class="circle-label">Duels</div>
                     </div>
                 </div>
                 <div class="stat-box">
                     <div class="circle-stat">
-                        <div class="circle" style="--percent: 4.666666666666667">
+                        <div class="circle" style="--percent: {{ dato_pases_percent }}">
                             <svg viewBox="0 0 130 130">
                                 <circle class="circle-bg" cx="65" cy="65" r="58"/>
                                 <circle class="circle-progress" cx="65" cy="65" r="58"/>
                             </svg>
-                            <div class="circle-value">4.2<small>min</small></div>
+                            <div class="circle-value">{{ dato_pases }}<small>min</small></div>
                         </div>
                         <div class="circle-label">Avg Minutes</div>
                     </div>
                 </div>
                 <div class="stat-box">
                     <div class="circle-stat">
-                        <div class="circle" style="--percent: 58.0">
+                        <div class="circle" style="--percent: {{ dato_sofascore_percent }}">
                             <svg viewBox="0 0 130 130">
                                 <circle class="circle-bg" cx="65" cy="65" r="58"/>
                                 <circle class="circle-progress" cx="65" cy="65" r="58"/>
                             </svg>
-                            <div class="circle-value">5.8</div>
+                            <div class="circle-value">{{ dato_sofascore }}</div>
                         </div>
                         <div class="circle-label">SofaScore</div>
                     </div>
